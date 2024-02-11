@@ -1,0 +1,43 @@
+drop table department;
+create table department(
+  dept_id number primary key,
+  dname varchar2(20) NOT NULL,
+  dept_block_no number
+);
+
+create table Employee(
+  eid number primary key,
+  ename varchar(20) NOT NULL,
+  salary number,
+  address varchar(20),
+  dept_no number,
+  foreign key(dept_no) references department(dept_id) on delete cascade
+);
+
+insert into department values(101,'CSIT',7);
+insert into department values(102,'BIM',14);
+insert into department values(103,'BCA',21);
+insert into department values(104,'BBM',28);
+insert into department values(105,'BHM',35);
+
+insert into Employee values(701,'Manish',100000,'Nardevi',101);
+insert into Employee values(702,'Bharad',75000,'Tokha',103);
+insert into Employee values(703,'Dhoj',50000,'Basundhara',102);
+insert into Employee values(704,'Abhishek',150000,'Dallu',103);
+insert into Employee values(705,'Abhimanyu',200000,'Dallu',104);
+
+select * from department;
+select * from Employee;
+
+delete from department where dept_id=105;
+delete from Employee where eid=704;
+select * from department;
+select * from Employee;
+
+select * from (Employee e inner join department d on (d.dept_id=e.dept_no));
+
+select * from (Employee e left outer join department d on (d.dept_id=e.dept_no));
+select * from (Employee e right outer join department d on (d.dept_id=e.dept_no));
+select * from (Employee e full outer join department d on (d.dept_id=e.dept_no));
+
+select * from employee e1, employee e2 where e1.salary<e2.salary;
